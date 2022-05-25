@@ -31,7 +31,7 @@ dict_emotions = {
 }
 
 
-model = pickle.load(open('data/finished_model.model','rb'))
+model = pickle.load(open('finished_model5.pkl','rb'))
 emotions_array =np.arange(1, 8)
 
 @application.route('/', methods=['GET'])
