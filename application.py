@@ -29,9 +29,7 @@ dict_emotions = {
     7: 'No te gustan las despedidas?. Puedes seguir en contacto con el niño sin ningún problema, para más información cliquea el botón: <link>'
 
 }
-
-
-model = pickle.load(open('finished_model.model','rb'))
+model = pickle.load(open('data/finished_model.pkl','rb'))
 emotions_array =np.arange(1, 8)
 
 @application.route('/', methods=['GET'])
