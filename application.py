@@ -1,3 +1,5 @@
+import nltk
+nltk.download('stopwords')
 from flask import Flask, jsonify, request
 import os
 import pickle
@@ -14,9 +16,9 @@ os.chdir(dir_path)
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 
-
-application = Flask(__name__)
+application = app = Flask(__name__)
 cors.init_app(application)
+
 
 dict_emotions = {
 
@@ -48,6 +50,7 @@ def home():
 @application.route('/api/v1/consulta', methods=["GET"])
 def consulta():
     if "text" in request.args:
+        
         signos = re.compile("(\.)|(\;)|(\:)|(\!)|(\?)|(\¿)|(\@)|(\,)|(\")|(\()|(\))|(\[)|(\])|(\d+)")
         def signs_texts(text):
             return signos.sub(' ', text.lower())
@@ -62,7 +65,7 @@ def consulta():
             return " ".join([stemmer.stem(word) for word in x.split()])
 
 
-        consulta = signs_texts(request.args["text"])
+        consulta = signs_texts(str(request.args["text"]))
         consulta = remove_stopwords(consulta)
         consulta = spanish_stemmer(consulta)
         prediction = model.predict_proba(pd.Series(consulta))[0]
@@ -73,4 +76,4 @@ def consulta():
     
 if __name__ == "__main__":
     application.debug = True
-    application.run()
+    application.run(port=8000)
