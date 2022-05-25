@@ -27,8 +27,8 @@ dict_emotions = {
     3: 'No te preocupes si eres soltero y da clic en el siguiente botón para informarte más al respecto: <link>',
     4: 'Si necesitas ayuda para resolver cualquier imprevisto que pueda suceder con el acogido, dando clic al botón accederás a la información que necesitas: <link>',
     5: 'Ayudas económicas. No más dudas! Resuelvelas aquí, primero cliquea el botón: <link>',
-    6: 'Es normal que tengas miedos. Tenemos para tí la siguiente información (Da clic en el botón): <link> ',
-    7: 'No te gustan las despedidas?. Puedes seguir en contacto con el niño sin ningún problema, para más información cliquea el botón: <link>'
+    6: 'Es normal que te cuestiones a ti mismo, si tienes lo necesario para brindarle al niño. Por lo tanto, tenemos para tí la siguiente información (Da clic en el botón): <link> ',
+    7: 'Te preocupan las despedidas? Muchos han pasado por eso, aquí tienes algunos consejos de como llevarlo lo mejor posible. En el siguiente enlace podrás encontrar toda la información.: <link>'
 
 }
 model = pickle.load(open('data/finished_model.pkl','rb'))
@@ -73,6 +73,14 @@ def consulta():
         for i in emotions_array[prediction > 0.2]:                        
             respond += " -" + dict_emotions[i]
         return jsonify({"respond":respond})
+    else:
+        return "ERROR : Bad Request"
+    
+# @application.route('/api/v1/update', methods=['PUT'])
+# def update_question():
+#     new_answer = request.args['answer']
+#     tag_answer = int(request.args['tag'])
+    
     
 if __name__ == "__main__":
     application.debug = True
