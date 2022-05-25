@@ -36,7 +36,7 @@ emotions_array =np.arange(1, 8)
 
 @application.route('/', methods=['GET'])
 def home():
-    return """<h1>Desafio Tripulaciones Grupo 3 2020: Modelo detección de emociones de un texto</h1>
+    return """<h1>DDDDDDDDesafio Tripulaciones Grupo 3 2020: Modelo detección de emociones de un texto</h1>
                 <p>Modelo que detecta la emoción de la respuesta a la pregunta: ¿Cual es tu mayor miedo, duda o inquietud acerca del acogimiento familiar?. Brindando la información que necesita el usuario.</p>
                 <p>
                 <p>Atacando el endpoint correspondiente podrás acceder al modelo de predicción, o por medio de una plataforma API.</p>
