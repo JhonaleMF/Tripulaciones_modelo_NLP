@@ -78,8 +78,13 @@ def consulta():
     
 # @application.route('/api/v1/update', methods=['PUT'])
 # def update_question():
-#     new_answer = request.args['answer']
-#     tag_answer = int(request.args['tag'])
+#     if "answer" in request.args and "tag" in request.args:
+#         new_answer = request.args['answer']
+#         tag_answer = int(request.args['tag'])
+#         for book in boo:ks
+#             if book['title'] == title:
+#                 book['published'] = year
+#         return jsonify(books)
     
     
 if __name__ == "__main__":
