@@ -101,6 +101,7 @@ def consulta():
         consulta = remove_stopwords(consulta)
         consulta = spanish_stemmer(consulta)
         prediction = model.predict_proba(pd.Series(consulta))[0]
+        respond = ""
         for i in emotions_array[prediction > 0.2]:                     
             respond += " -" + get_answer(i)
         return jsonify({"respond":respond})
