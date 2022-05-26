@@ -40,7 +40,7 @@ def change_answer(new_answer, etiqueta):
 def get_answer(prediction):
     query = f'''
     SELECT respuesta
-    FROM RESPUESTA
+    FROM RESPUESTAS
     WHERE etiqueta = {prediction};
     '''
     db = pymysql.connect(host = host,

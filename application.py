@@ -7,6 +7,8 @@ import pandas as pd
 import re
 import numpy as np
 from flask_cors import CORS
+from utils.config import *
+import pymysql
 
 
 cors = CORS()
@@ -50,6 +52,27 @@ def home():
 @application.route('/api/v1/consulta', methods=["GET"])
 def consulta():
     if "text" in request.args:
+        def get_answer(prediction):
+            query = f'''
+            SELECT *
+            FROM RESPUESTAS
+            WHERE etiqueta = {prediction};
+            '''
+            db = pymysql.connect(host = host,
+                                user = username,
+                                password = password,
+                                cursorclass = pymysql.cursors.DictCursor
+            )
+            cursor = db.cursor()
+            
+            cursor.connection.commit()
+            use_db = '''USE respuestas_openai'''
+            cursor.execute(use_db)
+            
+            cursor.execute(query)
+            predict_answer = cursor.fetchall()[0]["respuesta"]
+            db.close()
+            return predict_answer
         
         signos = re.compile("(\.)|(\;)|(\:)|(\!)|(\?)|(\¿)|(\@)|(\,)|(\")|(\()|(\))|(\[)|(\])|(\d+)")
         def signs_texts(text):
@@ -70,22 +93,44 @@ def consulta():
         consulta = spanish_stemmer(consulta)
         prediction = model.predict_proba(pd.Series(consulta))[0]
         respond = "Te interesaría la siguiente información:"
-        for i in emotions_array[prediction > 0.2]:                        
-            respond += " -" + dict_emotions[i]
+        for i in emotions_array[prediction > 0.2]:                     
+            respond += " -" + get_answer(i)
         return jsonify({"respond":respond})
     else:
         return "ERROR : Bad Request"
     
-# @application.route('/api/v1/update', methods=['PUT'])
-# def update_question():
-#     if "answer" in request.args and "tag" in request.args:
-#         new_answer = request.args['answer']
-#         tag_answer = int(request.args['tag'])
-#         for book in boo:ks
-#             if book['title'] == title:
-#                 book['published'] = year
-#         return jsonify(books)
+@application.route('/api/v1/update', methods=['PUT'])
+def update_question():
+    if "answer" in request.args and "tag" in request.args:
+        new_answer = request.args['answer']
+        tag_answer = int(request.args['tag'])
+        def change_answer(new_answer, etiqueta):
+            query = f'''
+            UPDATE RESPUESTAS
+            SET respuesta = '{new_answer}'
+            WHERE etiqueta = {etiqueta};
+            '''
+            db = pymysql.connect(host = host,
+                                user = username,
+                                password = password,
+                                cursorclass = pymysql.cursors.DictCursor
+            )
+            cursor = db.cursor()
+            
+            cursor.connection.commit()
+            use_db = '''USE respuestas_openai'''
+            cursor.execute(use_db)
+            #print(query)
+            
+            cursor.execute(query)
+            db.commit()
+            db.close()
+        change_answer(new_answer, tag_answer)
+        return "Successfully changed"
     
+    else:
+        return "ERROR : Bad Request"
+        
     
 if __name__ == "__main__":
     application.debug = True
