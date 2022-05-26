@@ -44,7 +44,16 @@ def home():
                 <p>Atacando el endpoint correspondiente podrás acceder al modelo de predicción, o por medio de una plataforma API.</p>
                 <h2>Solicitudes API</h2>
                 Solicitudes mediante la URL con el siguiente endpoint:
-                <p>- URL raíz + /api/v1/consulta?text=Respuesta ingresada</p>
+                <p>- Consulta para detectar el grupo de respuesta: URL raíz + /api/v1/consulta?text=Respuesta ingresada</p>
+                <p>- Modificar contenido respuestas según tag o clasificación de la respuesta: URL raíz + /api/v1/update?answer=<nueva respuesta>&tag=<tag del tipo de respuesta></p>
+                <p>  1: Adaptación del niño en la familia.</p>
+                <p>  2: Contactar con otra familia acogedora.</p>
+                <p>  3: Persona soltera en acoger un niño.</p>
+                <p>  4: Ayudas por parte de la asociacón ante cualquier imprevisto.</p>
+                <p>  5: Ayudas económicas para una familia acogedora.</p>
+                <p>  6: No dar los cuidados suficientes al niño (preocupación a no hacerlo bien).</p>
+                <p>  7: Vinculo con el niño.</p>
+                
 
                 Plataforma API:
                 <p>- Parametro o key "text", con su respectiva respuesta(value). <p>"""
@@ -92,7 +101,6 @@ def consulta():
         consulta = remove_stopwords(consulta)
         consulta = spanish_stemmer(consulta)
         prediction = model.predict_proba(pd.Series(consulta))[0]
-        respond = "Te interesaría la siguiente información:"
         for i in emotions_array[prediction > 0.2]:                     
             respond += " -" + get_answer(i)
         return jsonify({"respond":respond})
