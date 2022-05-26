@@ -46,6 +46,8 @@ def home():
                 Solicitudes mediante la URL con el siguiente endpoint:
                 <p>- Consulta para detectar el grupo de respuesta: URL raíz + /api/v1/consulta?text=Respuesta ingresada</p>
                 <p>- Modificar contenido respuestas según tag o clasificación de la respuesta: URL raíz + /api/v1/update?answer=<nueva respuesta>&tag=<tag del tipo de respuesta></p>
+                <p>  </p>
+                <p>  Tags o Grupos de respuestas</p>
                 <p>  1: Adaptación del niño en la familia.</p>
                 <p>  2: Contactar con otra familia acogedora.</p>
                 <p>  3: Persona soltera en acoger un niño.</p>
@@ -56,7 +58,8 @@ def home():
                 
 
                 Plataforma API:
-                <p>- Parametro o key "text", con su respectiva respuesta(value). <p>"""
+                <p>- Consulta para detectar el grupo de respuesta (GET): Parametro o key "text", con su respectiva respuesta(value). <p>
+                <p>- Modificar contenido respuestas según tag o clasificación de la respuesta (PUT): Parametros o keys "answer" y "tag", con su respectivas, nueva respuesta, y tag o grupo de la respuestas(values). <p>"""
 
 @application.route('/api/v1/consulta', methods=["GET"])
 def consulta():
