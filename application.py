@@ -106,7 +106,7 @@ def consulta():
         prediction = model.predict_proba(pd.Series(consulta))[0]
         respond = ""
         for i in emotions_array[prediction > 0.2]:                     
-            respond += " -" + get_answer(i)
+            respond += get_answer(i)
         return jsonify({"respond":respond})
     else:
         return "ERROR : Bad Request"
