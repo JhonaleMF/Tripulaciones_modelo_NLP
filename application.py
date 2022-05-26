@@ -45,7 +45,7 @@ def home():
                 <h2>Solicitudes API</h2>
                 Solicitudes mediante la URL con el siguiente endpoint:
                 <p>- Consulta para detectar el grupo de respuesta: URL raíz + /api/v1/consulta?text=Respuesta ingresada</p>
-                <p>- Modificar contenido respuestas según tag o clasificación de la respuesta: URL raíz + /api/v1/update?answer=<nueva respuesta>&tag=<tag del tipo de respuesta></p>
+                <p>- Modificar contenido respuestas según tag o clasificación de la respuesta: URL raíz + /api/v1/update?answer=Nueva respuesta&tag=Tag o Categoria del tipo de respuesta</p>
                 <p>  </p>
                 <p>  Tags o Grupos de respuestas</p>
                 <p>  1: Adaptación del niño en la familia.</p>
