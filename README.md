@@ -1,4 +1,4 @@
-# Detección de Emociones NLP
+# Detección de Emociones NLP 
 
 El desafío de tripulaciones, se trata de elaborar una solución a la problemática planteada, en el que diferentes verticales del Bootcamp (Data Science, UX/UI Product Design, Desarrollo Web Full Stack, Ciberseguridad y Marketing Digital) trabajan en conjunto. Para el año 2022 clase de febrero, la problemática se centraba en la Asociación Estatal de Familias de Acogimiento (ASEAF). 
 
